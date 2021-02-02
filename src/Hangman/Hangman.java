@@ -79,8 +79,6 @@ public class Hangman {
 				guessesLeft--;
 			}
 			
-			
-			boolean arraysEqual = false;
 			int lettersSame = 0;
 			for (int i=0;i<lettersInWord;i++) {
 				if (lettersGuessed[i]==wordChars[i]) {
@@ -88,9 +86,6 @@ public class Hangman {
 				}
 			}
 			if (lettersSame == lettersInWord) {
-				arraysEqual = true;
-			}
-			if (arraysEqual) {
 				won = true;
 				break;
 			}
