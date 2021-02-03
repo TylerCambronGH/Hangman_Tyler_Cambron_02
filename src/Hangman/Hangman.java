@@ -12,8 +12,7 @@ public class Hangman {
 	Dictionary dictionary = new Dictionary();
 	
 	public Hangman() {
-		this.wins = 0;
-		this.losses = 0;
+		loadWL();
 	}
 	
 	public void loadWL() {
@@ -45,8 +44,14 @@ public class Hangman {
 	}
 	
 	public boolean playGame() {
+		Scanner in = new Scanner(System.in);
+		System.out.println("Hangman? y/n");
+		String playing = in.nextLine().toLowerCase();
+		if (playing.contains("n")) {
+			in.close();
+			return false;
+		}
 		currentWord = this.dictionary.chooseWord().toLowerCase();
-		System.out.println(currentWord);
 		boolean won = false;
 		int lettersInWord = currentWord.length();
 		char[] wordChars = new char[lettersInWord];
@@ -55,14 +60,15 @@ public class Hangman {
 		}
 		char[] lettersGuessed = new char[lettersInWord];
 		int guessesLeft = 5;
-		Scanner input = new Scanner(System.in);
+		
 		while (guessesLeft > 0) {
 			System.out.printf("%d Letter Word\nYou have %d guesses left.\n", lettersInWord, guessesLeft);
 			for (char c: lettersGuessed) {
 				System.out.print(c);
 			}
 			System.out.print("\n");
-			String guess = input.nextLine().toLowerCase();
+			String guess = new String("z");
+			guess = in.nextLine().toLowerCase();
 			char guessLetter = guess.charAt(0);
 			boolean foundMatch = false;
 			for (int i=0;i<lettersInWord;i++) {
@@ -95,8 +101,8 @@ public class Hangman {
 		} else {
 			this.losses++;
 		}
+		in.close();
 		this.writeWL();
-		input.close();
 		return won;
 	}
 }
